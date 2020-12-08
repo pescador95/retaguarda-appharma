@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,  {useEffect} from 'react';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ShopConfigScreen from './pages/ShopConfigScreen';
+
+import OrderScreen from './pages/OrderScreen';
+
+import { Conteiner, Menu, PageBody } from './AppStyled';
+import MenuItem from './components/MenuItem';
+
+import PrivateRoute from './components/PrivateRoute';
+import Cart from './components/Cart'
+import NotFound from './pages/NotFound'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+
+import ReactTooltip from 'react-tooltip'
+
+export default () => {
+   document.title =  "R E T A G U A R D A  - [ Appharma ]";
+
+   return (
+      <BrowserRouter>
+         <Conteiner>
+            <Menu>
+               <MenuItem title="Pedidos" icon="/assets/order.png"  link="/"/>
+               <MenuItem title="Loja" icon="/assets/store.png"  link="/loja"/>
+               <MenuItem title="Perfil" icon="/assets/profile.png"  link="/perfil"/>
+            </Menu>
+            <PageBody>
+
+
+               <Switch>
+                  <PrivateRoute exact path="/">
+                     <OrderScreen />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/loja">
+                     <ShopConfigScreen />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/perfil">
+                     <Profile />
+                  </PrivateRoute>
+                  <Route exact path="/login">
+                     <Login />
+                  </Route>
+                  <Route>
+                     <NotFound />
+                  </Route>
+               </Switch>
+
+
+            </PageBody>
+            {/* <Cart /> */}
+            <ReactTooltip id="tip-top" place="top" effect="solid" />
+            <ReactTooltip id="tip-right" place="right" effect="solid" />
+
+
+         </Conteiner>
+
+
+      </BrowserRouter>
+   );
 }
-
-export default App;
