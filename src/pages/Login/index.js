@@ -36,7 +36,7 @@ function Login() {
    }
    return (
       <Conteiner>
-      <Title>Login - CI TESTE</Title>
+      <Title>Login</Title>
       <LoginArea>
          {error &&
             <ErrorMessage>{error}</ErrorMessage>
