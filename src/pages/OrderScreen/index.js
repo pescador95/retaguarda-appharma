@@ -9,55 +9,49 @@ import useApi from '../../Helpers/AppharmaApi'
 import { useSelector } from 'react-redux'
 import io from 'socket.io-client';
 
-const socket = io('https://approachmobile.company');
-
-
 let timeoutId;
 
 function OrderScreen() {
-   const api = useApi()
-   const [focus, setFocus] = useState(true)
-   const [headerSearch, setHeaderSearch] = useState('');
-   const [codCompra, setCodCompra] = useState('');
-   const [modalActive, setModalActive] = useState(false);
-   const [listaDePedidos, setListaDePedidos] = useState([])
-   const token = useSelector(state => state.userReducer.token);
+    const api = useApi()
+    const [focus, setFocus] = useState(true)
+    const [headerSearch, setHeaderSearch] = useState('');
+    const [codCompra, setCodCompra] = useState('');
+    const [modalActive, setModalActive] = useState(false);
+    const [listaDePedidos, setListaDePedidos] = useState([])
+    const token = useSelector(state => state.userReducer.token);
+    const socket = io('https://approachmobile.company');
+
+    socket.on('tem-venda', (codigoVenda) => {
+        console.log("Recebi uma venda.. tenho que abrir alguma coisa para alertar o usuario... ")
+        const audio = new Audio('/assets/caixa_alerta.mp3')
+       
+        let counter;
+        const blink = () => {
+           counter++;
+           audio.play()
+           reloadList();
+           const msg = '!!! A T E N Ç Ã O !!!';
+           const oldTitle = ' !! Você tem um novo pedido !!  ';
+           document.title = document.title == msg ? oldTitle : msg;
+           if (document.hasFocus() || counter ==10)
+           {
+              document.title =  "R E T A G U A R D A  - [ Appharma ]";
+              
+              clearInterval(timeoutId);
+              timeoutId=''
+           }
+        }
+
+           if (!timeoutId && (!document.hasFocus())) {
+              timeoutId = setInterval(blink, 250);
+           };
+
+     })
 
 
 
    useEffect(() => {
       reloadList()
-
-      socket.on('connect', (sock) => {
-         console.log("Conectei no servidor...")
-      });
-
-      socket.on('tem-venda', (codigoVenda) => {
-         console.log("Recebi uma venda.. tenho que abrir alguma coisa para alertar o usuario... "+ timeoutId)
-         const audio = new Audio('/assets/caixa_alerta.mp3')
-        
-         let counter;
-         const blink = () => {
-            counter++;
-            audio.play()
-            reloadList();
-            const msg = '!!! A T E N Ç Ã O !!!';
-            const oldTitle = ' !! Você tem um novo pedido !!  ';
-            document.title = document.title == msg ? oldTitle : msg;
-            if (document.hasFocus() || counter ==10)
-            {
-               document.title =  "R E T A G U A R D A  - [ Appharma ]";
-               
-               clearInterval(timeoutId);
-               timeoutId=''
-            }
-         }
-
-            if (!timeoutId && (!document.hasFocus())) {
-               timeoutId = setInterval(blink, 250);
-            };
-
-      })
 
    }, [])
 
