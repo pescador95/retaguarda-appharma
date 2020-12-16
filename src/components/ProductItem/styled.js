@@ -9,9 +9,7 @@ export const Conteiner = styled.div`
     align-items: center;
     color:#136713;
     cursor:pointer;
-    &:hover{
-        border-color:#000
-    }
+    
 `
 
 export const ProductFotoArea = styled.div`

@@ -65,6 +65,7 @@ const AppApi = {
             })
             return { success: "Status da venda alterada com sucesso!" }
         } catch (e) {
+            
             return { error: e.response.data_error }
         }
     },
@@ -84,6 +85,21 @@ const AppApi = {
             return { error: e.response.data_error }
         }
     },
+
+    sendPhoto: async(token, fData) => {
+        try {
+            const resp = await api.post(`files`, fData, {
+                headers: {
+                    auth: `${bearer} ${token}`,
+                    "Content-Type": `multipart/form-data; boundary=${fData._boundary}`,
+                }
+            })
+            return { resp }
+        } catch (e) {
+            console.log(e)
+            return { error: e }
+        }
+    }
 }
 
 export default () => AppApi;
