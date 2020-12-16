@@ -91,8 +91,12 @@ const AppApi = {
             const resp = await api.post(`files`, fData, {
                 headers: {
                     auth: `${bearer} ${token}`,
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "auth", 
+                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE" ,
                     "Content-Type": `multipart/form-data; boundary=${fData._boundary}`,
-                }
+                },
+
             })
             return { resp }
         } catch (e) {
