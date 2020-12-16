@@ -25,7 +25,7 @@ export default () => {
          <Conteiner>
             <Menu>
                <MenuItem title="Pedidos" icon="/assets/order.png"  link="/"/>
-               <MenuItem title="Loja" icon="/assets/store.png"  link="/loja"/>
+               <MenuItem title="Produtos" icon="/assets/store.png"  link="/loja"/>
                <MenuItem title="Perfil" icon="/assets/profile.png"  link="/perfil"/>
             </Menu>
             <PageBody>
