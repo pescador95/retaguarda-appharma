@@ -5,6 +5,7 @@ import useApi from '../../Helpers/AppharmaApi'
 import {doLogin} from '../../Helpers/AuthHandler'
 import {ErrorMessage} from  '../../AppStyled'
 import { useDispatch } from 'react-redux'
+import TokenHandler from '../../Helpers/TokenHandler'
 
 function Login() {
    const api = useApi();
@@ -27,6 +28,16 @@ function Login() {
       } else {
          let token = r.token
          let name = r.session.name
+
+         const validToken = await TokenHandler(token)
+
+         if(!(validToken.admin)){
+            setError("Acesso permitido apenas para administradores!");
+            setDisable(false);
+            return;
+         }
+
+
          doLogin(token);
          dispatch({ type: "SET_TOKEN", payload: {token} });
          dispatch({ type: "SET_NAME", payload: {name}})
