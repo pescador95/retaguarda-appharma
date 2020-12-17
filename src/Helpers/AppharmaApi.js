@@ -89,7 +89,7 @@ const AppApi = {
     sendPhoto: async(token, fData) => {
         try {
             const resp = await api.post(`files`, fData, {
-                headers:{ "Content-Type": `multpart/form-data; boundary=${fData._boundary}`, 'auth':`${bearer} ${token}, 'Access-Control-Allow-Origin':'https://retaguarda.approachmobile.company'`},
+                headers:{ "Content-Type": `multpart/form-data; boundary=${fData._boundary}`, 'auth':`${bearer} ${token}`, 'Access-Control-Allow-Origin':'https://retaguarda.approachmobile.company'},
                 crossDomain: true
             })
             console.log(resp)
