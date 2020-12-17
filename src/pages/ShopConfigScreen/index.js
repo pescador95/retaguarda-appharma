@@ -21,6 +21,9 @@ export default () => {
     const [totalPages, setTotalPages] = useState(0);
     const [activePage, setActivePage] = useState(0);
     const [productVisible, setProductVisible] = useState(false);
+    const [productImage, setProductImage] = useState('');
+    const [productName, setProductName] = useState('');
+    const [refresh, setRefresh] = useState(false);
 
 
     const getProdutos = async () => {
@@ -30,11 +33,13 @@ export default () => {
             setTotalPages(prods.paginas)
             setActivePage(prods.pagina)
         }
-
-
-
-
     }
+
+    useEffect(() => {
+        if(refresh){
+            window.location.reload(); 
+        }
+    }, [refresh])
 
     useEffect(() => {
         clearTimeout(searchTimer);
@@ -61,6 +66,8 @@ export default () => {
                                 data={item}
                                 setVisible ={setProductVisible}
                                 selected={setIdProduto}
+                                setProductImage={setProductImage}
+                                setProductName={setProductName}
                             />
                         ))}
                     </ProductList>
@@ -79,7 +86,7 @@ export default () => {
             }
 
             <Modal active={productVisible} setActive={setProductVisible} >
-                <ModalProduct  idProduto={idProduto}/>
+                <ModalProduct  idProduto={idProduto} imgUrl={productImage} nome={productName} refreshPage={setRefresh} setProductImage={setProductImage}/>
             </Modal>
 
         </Container>

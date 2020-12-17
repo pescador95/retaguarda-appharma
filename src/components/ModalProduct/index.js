@@ -1,17 +1,15 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {Container, ProductArea, ProductPhoto, ProductInfoArea, ProductDetails, ProductImportaFoto, ProductButtons, ProductName, ProductDescription, Buttom} from './styled'
 import useApi from '../../Helpers/AppharmaApi'
 import { useSelector } from 'react-redux'
 
-export default ({idProduto}) =>{
+export default ({idProduto, imgUrl, nome, setProductImage, refreshPage}) =>{
     
     const[desc, setDesc] = useState('');
-    const[uri, setUri] = useState("https://approachmobile.company//files/8d390e0e49b62374aba34c7dbc717f37.jpg");
     const fileField = useRef();
     const [error, setError] = useState('');
     const token = useSelector(state => state.userReducer.token)
     const api = useApi()
-    
 
     const handleSubmit = async(e) => {
         const fData = new FormData();
@@ -24,25 +22,24 @@ export default ({idProduto}) =>{
         
         let {url, id} =  resposta.resp.data.imgId
         
-        setUri(url)
-        
         let obj = {id_produto: idProduto, descricao:desc, id_img: id}
         
         await api.putProduto(token, obj )
-        
 
+        setProductImage(url);
+        refreshPage(true)
     }
 
     return (
         <Container>
             <ProductArea>
-                <ProductPhoto src ={uri} />
+                <ProductPhoto src={imgUrl} />
                 <ProductInfoArea>
 
                     <ProductDetails>
-                        <ProductName>Nome: Fuking Produto</ProductName>
+                        <ProductName>Nome: {nome}</ProductName>
                         <p>Descrição</p>
-                        <ProductDescription cols="45" rows="10" 
+                        <ProductDescription cols="54" rows="10" 
                             value={desc}
                             onChange={e=>setDesc(e.target.value)}
                         ></ProductDescription>
