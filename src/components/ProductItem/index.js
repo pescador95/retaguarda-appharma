@@ -2,9 +2,13 @@ import React from 'react'
 import {Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom} from './styled'
 import d from '../../config/padroes'
 
-export default ({data}) => {
+export default ({data, selected, setVisible}) => {
+    const clickHandle =  () => {
+        selected(data.id)
+        setVisible(true)
+    }
     return (
-        <Conteiner>
+        <Conteiner onClick={() => clickHandle()}>
             <ProductFotoArea>
                 <ProductFoto src={d.URL_FILES+data.path} />
             </ProductFotoArea>

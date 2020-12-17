@@ -85,14 +85,25 @@ const AppApi = {
             return { error: e.response.data_error }
         }
     },
+    putProduto: async (token, {descricao, id_img, id_produto}) =>{
+        try {
+            console.log("Entrei no put produto...com id de imagem:"+id_img+" e com id do produto: "+id_produto)
+            const resp = await api.put(`produtos?id=${id_produto}`, {descricao, img_id:id_img}, {
+                headers:{auth:`${bearer} ${token}`}
+            })
+            return { resp }
+        } catch (e) {
+            console.log(e)
+            return { error: e }
+        }     
+    },
 
     sendPhoto: async(token, fData) => {
         try {
+            console.log(fData)
             const resp = await api.post(`files`, fData, {
-                headers:{ "Content-Type": `multpart/form-data; boundary=${fData._boundary}`, 'auth':`${bearer} ${token}`, 'Access-Control-Allow-Origin':'https://retaguarda.approachmobile.company'},
-                crossDomain: true
+                headers:{auth:`${bearer} ${token}`, 'Content-Type':'multipart/form-data'}
             })
-            console.log(resp)
             return { resp }
         } catch (e) {
             console.log(e)

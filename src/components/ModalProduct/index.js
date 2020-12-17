@@ -3,30 +3,40 @@ import {Container, ProductArea, ProductPhoto, ProductInfoArea, ProductDetails, P
 import useApi from '../../Helpers/AppharmaApi'
 import { useSelector } from 'react-redux'
 
-export default () =>{
+export default ({idProduto}) =>{
+    
     const[desc, setDesc] = useState('');
+    const[uri, setUri] = useState("https://approachmobile.company//files/8d390e0e49b62374aba34c7dbc717f37.jpg");
     const fileField = useRef();
     const [error, setError] = useState('');
     const token = useSelector(state => state.userReducer.token)
     const api = useApi()
+    
 
     const handleSubmit = async(e) => {
         const fData = new FormData();
-
-        if(fileField.current.files.lengh > 0){
+        
+        if(fileField.current){
             fData.append('file', fileField.current.files[0])
         }
-
+        
         let resposta = await api.sendPhoto(token, fData);
-
-        console.log(resposta)
+        
+        let {url, id} =  resposta.resp.data.imgId
+        
+        setUri(url)
+        
+        let obj = {id_produto: idProduto, descricao:desc, id_img: id}
+        
+        await api.putProduto(token, obj )
+        
 
     }
 
     return (
         <Container>
             <ProductArea>
-                <ProductPhoto src ="https://approachmobile.company/files/ce7038a79012d43faa7ef8bde2648394.jpg" />
+                <ProductPhoto src ={uri} />
                 <ProductInfoArea>
 
                     <ProductDetails>

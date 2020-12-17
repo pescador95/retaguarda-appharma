@@ -14,12 +14,13 @@ export default () => {
     const [activeSearch, setActiveSearch] = useState('')
     const history = useHistory();
     const token = useSelector(state => state.userReducer.token);
+    const [idProduto, setIdProduto] = useState(0)
     const api = useApi();
     const [produtos, setProdutos] = useState([])
     const [headerSearch, setHeaderSearch] = useState('');
     const [totalPages, setTotalPages] = useState(0);
     const [activePage, setActivePage] = useState(0);
-    const [productVisible, setProductVisible] = useState(true);
+    const [productVisible, setProductVisible] = useState(false);
 
 
     const getProdutos = async () => {
@@ -58,6 +59,8 @@ export default () => {
                             <ProductItem
                                 key={index}
                                 data={item}
+                                setVisible ={setProductVisible}
+                                selected={setIdProduto}
                             />
                         ))}
                     </ProductList>
@@ -76,7 +79,7 @@ export default () => {
             }
 
             <Modal active={productVisible} setActive={setProductVisible} >
-                <ModalProduct />
+                <ModalProduct  idProduto={idProduto}/>
             </Modal>
 
         </Container>
