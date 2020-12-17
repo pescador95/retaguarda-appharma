@@ -2,7 +2,7 @@ import axios from 'axios';
 import d from '../config/padroes'
 
 const api = axios.create({
-    baseURL: d.API_URL
+    baseURL: d.API_URL,
 })
 
 let bearer = 'Bearer';
@@ -89,15 +89,10 @@ const AppApi = {
     sendPhoto: async(token, fData) => {
         try {
             const resp = await api.post(`files`, fData, {
-                headers: {
-                    auth: `${bearer} ${token}`,
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Headers": "auth", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE" ,
-                    "Content-Type": `multipart/form-data; boundary=${fData._boundary}`,
-                },
-
+                headers:{ "Content-Type": `multpart/form-data; boundary=${fData._boundary}`, 'auth':`${bearer} ${token}`},
+                crossDomain: true
             })
+            console.log(resp)
             return { resp }
         } catch (e) {
             console.log(e)
