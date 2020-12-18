@@ -11,6 +11,11 @@ export const Conteiner = styled.div`
     cursor:pointer;
     
 `
+export const AreaAux = styled.div`
+display: flex;
+flex:1;
+align-items: center;
+`
 
 export const ProductFotoArea = styled.div`
     width:100px;

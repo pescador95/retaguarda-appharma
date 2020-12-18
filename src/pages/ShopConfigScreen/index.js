@@ -51,7 +51,8 @@ export default () => {
                             <ProductItem
                                 key={index}
                                 data={item}
-                            />
+                                getProdutos={getProdutos}
+                                />
                         ))}
                     </ProductList>
                     {totalPages > 0 &&

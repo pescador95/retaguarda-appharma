@@ -4,9 +4,10 @@ import useApi from '../../Helpers/AppharmaApi'
 import { useSelector } from 'react-redux'
 import { SuccessMessage } from '../../AppStyled'
 
-export default ({ idProduto, imgUrl, nome, setProductImage, setVisible }) => {
+export default ({ idProduto, imgUrl, data, attProdutos }) => {
 
-    const [desc, setDesc] = useState('');
+    const [image, setImage] = useState(imgUrl);
+    const [desc, setDesc] = useState(data.descricao!=null?data.descricao:'');
     const fileField = useRef();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -17,24 +18,32 @@ export default ({ idProduto, imgUrl, nome, setProductImage, setVisible }) => {
 
         const fData = new FormData();
         let id_img = null;
-        if (fileField.current) {
+
+        if (fileField.current.files[0]) {
             fData.append('file', fileField.current.files[0])
             let resposta = await api.sendPhoto(token, fData);
             let { url, id } = resposta.resp.data.imgId
             id_img = id
-            setProductImage(url);
+            setImage(url)
         }
 
-        let obj = { id_produto: idProduto, descricao: desc, id_img: id_img }
+        let obj;
+        if(id_img!=null){
+            obj = { id_produto: idProduto, descricao: desc, id_img: id_img }
+        } else{
+            obj = { id_produto: idProduto, descricao: desc}
+        }
+
+        console.log(JSON.stringify(obj))
 
         await api.putProduto(token, obj)
         setSuccess("Salvo com sucesso!")
-
-
+        attProdutos();
 
 
 
     }
+
 
     return (
         <Container>
@@ -42,11 +51,11 @@ export default ({ idProduto, imgUrl, nome, setProductImage, setVisible }) => {
                 <SuccessMessage>{success}</SuccessMessage>
             }
             <ProductArea>
-                <ProductPhoto src={imgUrl} />
+                <ProductPhoto src={image} />
                 <ProductInfoArea>
 
                     <ProductDetails>
-                        <ProductName>Nome: {nome}</ProductName>
+                        <ProductName>Nome: {data.nome}</ProductName>
                         <p>Descrição</p>
                         <ProductDescription cols="54" rows="10"
                             value={desc}

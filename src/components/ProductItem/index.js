@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
-import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom } from './styled'
+import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom, AreaAux } from './styled'
 import Modal from '../../components/Modal'
 import ModalProduct from '../../components/ModalProduct'
 
-export default ({ data }) => {
+export default ({ data, getProdutos }) => {
     const [productVisible, setProductVisible] = useState(false);
-    const [uri, setUri] = useState(data.path ? `https://approachmobile.company//files/${data.path}` : "https://approachmobile.company//files/e6a7faf6cc8c3e6da9e4726917cdc30e.png");
+    const [uri, setUri] = useState();
 
     const clickHandle = () => {
         setProductVisible(true)       
     }
 
     return (
-        <Conteiner >
-            <ProductFotoArea  onClick={() => clickHandle()}>
-                <ProductFoto src={uri} />
+        <Conteiner  >
+            <AreaAux onClick={() => clickHandle()}>
+            <ProductFotoArea >
+                <ProductFoto src={data.path ? `https://approachmobile.company//files/${data.path}` : "/assets/nopicture.png"} />
             </ProductFotoArea>
             <ProductInfoArea>
                 <ProductCodigo>Codigo Barras: {data.codigo_barras}</ProductCodigo>
@@ -24,8 +25,13 @@ export default ({ data }) => {
             <ProductButtomArea>
                 <ProductButtom src="/assets/next.png" />
             </ProductButtomArea>
+            </AreaAux>
             <Modal active={productVisible} setActive={setProductVisible} >
-                <ModalProduct idProduto={data.id} imgUrl={uri} nome={data.nome} setProductImage={setUri} setVisible={setProductVisible} className="modalBg" />
+                <ModalProduct idProduto={data.id} 
+                                      imgUrl={data.path ? `https://approachmobile.company//files/${data.path}` : "/assets/nopicture.png"} 
+                                      data={data} 
+                                    attProdutos={getProdutos}
+                                      />
             </Modal>
         </Conteiner>
     )
