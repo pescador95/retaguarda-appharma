@@ -1,20 +1,19 @@
-import React, {useState, useEffect} from 'react'
-import {Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom} from './styled'
-import d from '../../config/padroes'
+import React, { useState } from 'react'
+import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom } from './styled'
+import Modal from '../../components/Modal'
+import ModalProduct from '../../components/ModalProduct'
 
-export default ({data, selected, setVisible, setProductImage, setProductName}) => {
-    const[uri, setUri] = useState( data.path ? `https://approachmobile.company//files/${data.path}` : "https://approachmobile.company//files/e6a7faf6cc8c3e6da9e4726917cdc30e.png");
-    const clickHandle =  () => {
-        selected(data.id)
-        setProductImage(uri)
-        console.log("Setei uri: "+uri)
-        setProductName(data.nome)
-        setVisible(true)
+export default ({ data }) => {
+    const [productVisible, setProductVisible] = useState(false);
+    const [uri, setUri] = useState(data.path ? `https://approachmobile.company//files/${data.path}` : "https://approachmobile.company//files/e6a7faf6cc8c3e6da9e4726917cdc30e.png");
+
+    const clickHandle = () => {
+        setProductVisible(true)       
     }
 
     return (
-        <Conteiner onClick={() => clickHandle()}>
-            <ProductFotoArea>
+        <Conteiner >
+            <ProductFotoArea  onClick={() => clickHandle()}>
                 <ProductFoto src={uri} />
             </ProductFotoArea>
             <ProductInfoArea>
@@ -23,8 +22,11 @@ export default ({data, selected, setVisible, setProductImage, setProductName}) =
                 <ProductPrice>Preço: R$ {data.preco}</ProductPrice>
             </ProductInfoArea>
             <ProductButtomArea>
-                   <ProductButtom src="/assets/next.png" /> 
+                <ProductButtom src="/assets/next.png" />
             </ProductButtomArea>
+            <Modal active={productVisible} setActive={setProductVisible} >
+                <ModalProduct idProduto={data.id} imgUrl={uri} nome={data.nome} setProductImage={setUri} setVisible={setProductVisible} className="modalBg" />
+            </Modal>
         </Conteiner>
     )
 }

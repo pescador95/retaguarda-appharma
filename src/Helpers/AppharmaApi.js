@@ -87,7 +87,6 @@ const AppApi = {
     },
     putProduto: async (token, {descricao, id_img, id_produto}) =>{
         try {
-            console.log("Entrei no put produto...com id de imagem:"+id_img+" e com id do produto: "+id_produto)
             const resp = await api.put(`produtos?id=${id_produto}`, {descricao, img_id:id_img}, {
                 headers:{auth:`${bearer} ${token}`}
             })
