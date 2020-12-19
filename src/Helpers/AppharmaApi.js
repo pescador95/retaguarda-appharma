@@ -74,10 +74,10 @@ const AppApi = {
         try {
             let resp;
             if (!search){
-                resp = await api.get(`/produtos${ page>0 ? '?page='+page : '' }`)
+                resp = await api.get(`/produtos${ page>0 ? 'page='+page : '' }`)
             }else {
-                resp = await api.get(`/produtos/search?name=${(search.toUpperCase())}&${ page>0 ? '?page='+page : '' }`)
-                console.log(`/produtos/search?name=${search}&${ page>0 ? '?page='+page : '' }`)
+                resp = await api.get(`/produtos/search?name=${(search.toUpperCase())}&${ page>0 ? 'page='+page : '' }`)
+                console.log(`/produtos/search?name=${search}&${ page>0 ? 'page='+page : '' }`)
             }
             
             return resp.data
