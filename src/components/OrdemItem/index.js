@@ -50,6 +50,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
          await api.sendMessage(token, 1, idCliente)
          setSuccessMsg('Venda autorizada com sucesso!')
          reloadList()
+         await api.baixarReservas(token, data.codigo_venda)
       } catch (e) {
          setErrorMsg('Erro ao autorizar esse pedido! ' + e.message)
          return

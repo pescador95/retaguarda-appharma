@@ -77,7 +77,6 @@ const AppApi = {
                 resp = await api.get(`/produtos${ page>0 ? '?page='+page : '' }`)
             }else {
                 resp = await api.get(`/produtos/search?name=${(search.toUpperCase())}&${ page>0 ? 'page='+page : '' }`)
-                console.log(`/produtos/search?name=${search}&${ page>0 ? 'page='+page : '' }`)
             }
             
             return resp.data
@@ -99,7 +98,6 @@ const AppApi = {
 
     sendPhoto: async(token, fData) => {
         try {
-            console.log(fData)
             const resp = await api.post(`files`, fData, {
                 headers:{auth:`${bearer} ${token}`, 'Content-Type':'multipart/form-data'}
             })
@@ -107,6 +105,18 @@ const AppApi = {
         } catch (e) {
             console.log(e)
             return { error: e }
+        }
+    },
+
+    baixarReservas: async(token, codigo_venda) => {
+        try{
+            const resp = await api.put(`reserva/${codigo_venda}`,{}, {
+                headers:{auth:`${bearer} ${token}`}
+            })
+            return {resp}
+        } catch(e){
+            console.log(e)
+            return {error: e}
         }
     }
 }
