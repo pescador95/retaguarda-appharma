@@ -86,7 +86,7 @@ const AppApi = {
     },
     putProduto: async (token, {descricao, id_img, id_produto}) =>{
         try {
-            const resp = await api.put(`produtos?id=${id_produto}`, {descricao, img_id:id_img}, {
+            const resp = await api.put(`produtos/${id_produto}`, {descricao, img_id:id_img}, {
                 headers:{auth:`${bearer} ${token}`}
             })
             return { resp }
