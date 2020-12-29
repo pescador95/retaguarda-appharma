@@ -118,6 +118,18 @@ const AppApi = {
             console.log(e)
             return {error: e}
         }
+    },
+
+    cancelarResarvas: async(token, codigo_venda) =>{
+        try{
+            const resp = await api.put(`reserva/cancelar/${codigo_venda}`,{}, {
+                headers:{auth:`${bearer} ${token}`}
+            })
+            return {resp}
+        } catch(e){
+            console.log(e)
+            return {error: e}
+        }
     }
 }
 
