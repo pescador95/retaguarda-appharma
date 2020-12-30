@@ -122,14 +122,14 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
             <Text size="14px" style={{ textAlign: 'center', marginBottom: 5 }}> Data da Venda: {dataVenda} {horaVenda}</Text>
             <BodyItem className="item">
                 <PedidoInfo>
-                    <Text>CPF: {data.status}</Text>
+                    <Text>CPF: </Text>
                     <Text>Nome</Text>
                     <Text>Tipo Entrega</Text>
                     <Text>{data.tipo_entrega === 'Delivery' ? 'Levar Pinpad?' : 'Total'}</Text>
                     <Text>{data.tipo_entrega === 'Delivery' ? 'Troco para' : ' '}</Text>
                     <Text>{data.tipo_entrega === 'Delivery' ? 'Total' : ' '}</Text>
                     <Text size="13px" >{FormataCpf(data.cpf)}</Text>
-                    <Text size="13px">{Titlelize(data.name)}</Text>
+                    <Text size="13px">{data.name}</Text>
                     <Text size="13px">{data.tipo_entrega}</Text>
                     {data.tipo_entrega === 'Delivery' &&
                         <Text size="13px">{data.levar_pinpad ? 'Sim' : 'Não'}</Text>
