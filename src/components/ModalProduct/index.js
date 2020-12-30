@@ -4,7 +4,7 @@ import useApi from '../../Helpers/AppharmaApi'
 import { useSelector } from 'react-redux'
 import { SuccessMessage } from '../../AppStyled'
 
-export default ({ idProduto, imgUrl, data, attProdutos }) => {
+export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
     const [image, setImage] = useState(imgUrl);
     const [desc, setDesc] = useState(data.descricao!=null?data.descricao:'');
@@ -39,6 +39,13 @@ export default ({ idProduto, imgUrl, data, attProdutos }) => {
         await api.putProduto(token, obj)
         setSuccess("Salvo com sucesso!")
         attProdutos();
+        setTimeout(()=>{
+            setSuccess('');
+            setImage("/assets/nopicture.png");
+            fileField.current.value = '';
+            setActive(false);
+
+        },2000);
 
 
 
