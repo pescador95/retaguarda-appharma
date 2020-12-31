@@ -33,6 +33,7 @@ export default () => {
         searchTimer = setTimeout(() => {
             setActiveSearch(headerSearch)
         }, 2000);
+        setActivePage(0)
 
     }, [headerSearch])
 

@@ -51,7 +51,6 @@ const AppApi = {
         }
 
     },
-
     changeStatus: async (token, status, codigo_venda, usuario_alteracao) => {
         try {
             const resp = await api.put(`venda`, {
@@ -69,7 +68,6 @@ const AppApi = {
             return { error: e.response.data_error }
         }
     },
-
     getProdutos: async (page, search) => {
         try {
             let resp;
@@ -129,6 +127,30 @@ const AppApi = {
         } catch(e){
             console.log(e)
             return {error: e}
+        }
+    },
+
+    getConfigs: async(token) =>{
+        try{
+            const resp = await api.get(`loja`, {
+                headers:{auth:`${bearer} ${token}`}
+            })
+            return resp.data
+        } catch(e){
+            console.log(e)
+            return {error: e}
+        }
+    },
+
+    putConfig: async(token, codigoLoja, body) => {
+        try{
+            const resp = await api.put(`loja/${codigoLoja}`, body, {
+                headers:{auth:`${bearer} ${token}`}
+            })
+            return {resp}
+        }catch(e){
+            console.log(e)
+            return {error:e}
         }
     }
 }

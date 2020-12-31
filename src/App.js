@@ -1,8 +1,8 @@
 import React,  {useEffect} from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useSelector } from 'react-redux';
 
 import ShopConfigScreen from './pages/ShopConfigScreen';
+import ConfigScreen from './pages/ConfigScreen'
 
 import OrderScreen from './pages/OrderScreen';
 
@@ -10,7 +10,6 @@ import { Conteiner, Menu, PageBody } from './AppStyled';
 import MenuItem from './components/MenuItem';
 
 import PrivateRoute from './components/PrivateRoute';
-import Cart from './components/Cart'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
@@ -26,6 +25,7 @@ export default () => {
             <Menu>
                <MenuItem title="Pedidos" icon="/assets/order.png"  link="/"/>
                <MenuItem title="Produtos" icon="/assets/store.png"  link="/loja"/>
+               <MenuItem title="Configurações" icon="/assets/engrenagem.png"  link="/configuracao"/>
                <MenuItem title="Perfil" icon="/assets/profile.png"  link="/perfil"/>
             </Menu>
             <PageBody>
@@ -37,6 +37,9 @@ export default () => {
                   </PrivateRoute>
                   <PrivateRoute exact path="/loja">
                      <ShopConfigScreen />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/configuracao">
+                     <ConfigScreen />
                   </PrivateRoute>
                   <PrivateRoute exact path="/perfil">
                      <Profile />
