@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import FormataCpf from '../../Helpers/FormataCpf'
 import Titlelize from '../../Helpers/Titlelize'
-import { Container, BodyItem, InfoOrder, StatusArea, Buttom, PedidoInfo, ChavePedido, Text, HeaderStatus, 
-    ButtonsStatus, InfoOrderArea, EnderecoArea, Endereco, EnderecoHeader, CancelButtom, CancelArea } from './styled';
+import {
+    Container, BodyItem, InfoOrder, StatusArea, Buttom, PedidoInfo, ChavePedido, Text, HeaderStatus, WhatsArea,
+    ButtonsStatus, InfoOrderArea, EnderecoArea, Endereco, EnderecoHeader, CancelButtom, CancelArea, WhatsappButtom
+} from './styled';
 import useApi from '../../Helpers/AppharmaApi'
 import { ErrorMessage, SuccessMessage } from '../../AppStyled'
 
@@ -59,6 +61,8 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
 
     }
 
+
+
     const handleSaiu = async (idCliente) => {
         if (data.status !== 'Confirmado') {
             setErrorMsg('Você precisa autorizar o pedido primeiro!')
@@ -95,6 +99,22 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
 
     }
 
+    const handleWhats = (uatis) => {
+        let v = uatis;
+        var r = v.replace(/\D/g, "");
+        r = r.replace(/^0/, "");
+        if (r.length > 10) {
+            r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (r.length > 5) {
+            r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (r.length > 2) {
+            r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
+        } else {
+            r = r.replace(/^(\d*)/, "($1");
+        }
+        return r
+    }
+
     const handleEndereco = () => {
         setOpenEndereco(!openEndereco)
     }
@@ -124,12 +144,14 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
                 <PedidoInfo>
                     <Text>CPF: </Text>
                     <Text>Nome</Text>
+                    <Text>Celular</Text>
                     <Text>Tipo Entrega</Text>
                     <Text>{data.tipo_entrega === 'Delivery' ? 'Levar Pinpad?' : 'Total'}</Text>
                     <Text>{data.tipo_entrega === 'Delivery' ? 'Troco para' : ' '}</Text>
                     <Text>{data.tipo_entrega === 'Delivery' ? 'Total' : ' '}</Text>
                     <Text size="13px" >{FormataCpf(data.cpf)}</Text>
                     <Text size="13px">{data.name}</Text>
+                    <Text size="13px">{handleWhats(data.whatsapp)}</Text>
                     <Text size="13px">{data.tipo_entrega}</Text>
                     {data.tipo_entrega === 'Delivery' &&
                         <Text size="13px">{data.levar_pinpad ? 'Sim' : 'Não'}</Text>
@@ -159,6 +181,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
                             handleCancelar(data.idcliente)
                         }}>Cancelar</CancelButtom>
                     </CancelArea>
+
                 </StatusArea>
             </BodyItem>
             <InfoOrder className="buttom" open={openEndereco}>

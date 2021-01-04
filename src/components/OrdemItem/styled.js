@@ -67,7 +67,20 @@ export const CancelButtom = styled.button`
          background-color: ${props => props.active ? '#cf6b15' : '#999'};
       }
 `
-
+export const WhatsappButtom = styled.button`
+      background-color: ${props => props.active ? '#25d366' : '#999'};
+      flex:1;
+      border:1;
+      outline:0;
+      padding:5px 10px;
+      cursor:pointer;
+      font-size:12px;
+      color:${props => props.active ? '#fff' : '#fff'};;
+      border-radius:5px;
+      &:hover {      
+         background-color: ${props => props.active ? '#128c7e' : '#999'};
+      }
+`
 export const HeaderStatus = styled.div`
    display:flex;
    margin:5px;
@@ -83,12 +96,14 @@ export const ButtonsStatus = styled.div`
 export const CancelArea = styled.div`
       display:flex;
 `
-
+export const WhatsArea = styled.div`
+      display:flex;
+`
 export const PedidoInfo = styled.div`
    display:grid;
    width:100%;
    height:50px;
-   grid-template-columns: repeat(6, 2fr);
+   grid-template-columns: repeat(7, 2fr);
    border-bottom:1px solid #999;
    border-top:1px solid #999;
    padding-top:10px;
