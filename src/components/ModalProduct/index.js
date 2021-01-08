@@ -6,13 +6,21 @@ import { SuccessMessage } from '../../AppStyled'
 
 export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
-    const [image, setImage] = useState(imgUrl);
+    const [image, setImage] = useState('');
     const [desc, setDesc] = useState(data.descricao!=null?data.descricao:'');
     const fileField = useRef();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const token = useSelector(state => state.userReducer.token)
     const api = useApi()
+
+    useEffect(()=>{
+        setImage(imgUrl)
+        console.log("Deveria atualizar a imagem")
+
+        return () =>  setImage("/assets/nopicture.png");
+
+    }, [imgUrl])
 
     const handleSubmit = async () => {
 

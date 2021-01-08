@@ -29,17 +29,31 @@ export default () => {
     }
 
     useEffect(() => {
+        let unmonted = false;
         clearTimeout(searchTimer);
-        searchTimer = setTimeout(() => {
-            setActiveSearch(headerSearch)
-        }, 2000);
-        setActivePage(0)
+        if (!unmonted) {
+            searchTimer = setTimeout(() => {
+                setActiveSearch(headerSearch)
+            }, 2000);
+            setActivePage(0)
+        }
+
+        return () => unmonted = true
 
     }, [headerSearch])
 
     useEffect(() => {
-        getProdutos();
+        let unmonted = false
+        if (!unmonted) {
+            getProdutos();
+        }
+
+        return () => unmonted = true;
     }, [activePage, activeSearch])
+
+    const paginationHandler = (ind) => {
+        setActivePage(ind + 1)
+    }
 
     return (
         <Container>
@@ -53,18 +67,16 @@ export default () => {
                                 key={index}
                                 data={item}
                                 getProdutos={getProdutos}
-                                />
+                            />
                         ))}
                     </ProductList>
                     {totalPages > 0 &&
                         <ProductPaginationArea>
                             {Array(totalPages).fill(0).map((item, index) => (
-                                <ProductPaginationItem key={index} active={activePage} current={index + 1} onClick={() => setActivePage(index + 1)}>
+                                <ProductPaginationItem key={index} active={activePage} current={index + 1} onClick={() => paginationHandler(index)}>
                                     {index + 1}
                                 </ProductPaginationItem>
-                            ))
-
-                            }
+                            ))}
                         </ProductPaginationArea>
                     }
                 </ProductArea>

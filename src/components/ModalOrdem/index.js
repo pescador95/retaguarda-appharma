@@ -10,7 +10,7 @@ import { Container, ItemArea, CodigoBarras, Nome, PrecoUnidade, Qtd, Desconto, P
 function ModalOrdem({ codOrdem }) {
    const api = useApi()
    const token = useSelector(state => state.userReducer.token)
-   const [listaItems, setListaItems] = useState([0])
+   const [listaItems, setListaItems] = useState([])
    const [codigoBar, setCodigoBar] = useState('')
 
    useEffect(() => {
@@ -19,6 +19,11 @@ function ModalOrdem({ codOrdem }) {
          setListaItems(lista)
       }
       getItemList()
+      
+
+      return () => {
+          setListaItems([])
+      }
    }, [codOrdem])
 
    const handleCodClick = (e) =>{
