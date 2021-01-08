@@ -5,7 +5,6 @@ import ModalProduct from '../../components/ModalProduct'
 
 export default ({ data, getProdutos }) => {
     const [productVisible, setProductVisible] = useState(false);
-    const [uri, setUri] = useState();
 
     const clickHandle = () => {
         setProductVisible(true)
