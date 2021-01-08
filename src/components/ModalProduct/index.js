@@ -81,7 +81,7 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
                 </ProductInfoArea>
             </ProductArea>
-            <ProductButtons>
+            <ProductButtons> 
                 <Buttom active={true} onClick={() => handleSubmit()}>Salvar</Buttom>
             </ProductButtons>
         </Container>

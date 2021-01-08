@@ -11,7 +11,7 @@ import useApi from '../../Helpers/AppharmaApi'
 import { ErrorMessage, SuccessMessage } from '../../AppStyled'
 
 
-function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
+function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList, tipoEntrega }) {
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
     const [openEndereco, setOpenEndereco] = useState(false)
@@ -36,6 +36,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
     const handleItemClick = (e) => {
         if (!e.target.classList.contains('buttom')) {
             setCodCompra(data.codigo_venda)
+            tipoEntrega(data.tipo_entrega)
             itemList(true)
         }
 

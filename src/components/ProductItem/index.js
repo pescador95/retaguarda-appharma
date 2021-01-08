@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom, AreaAux } from './styled'
+import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom, AreaAux, ProductFabricante } from './styled'
 import Modal from '../../components/Modal'
 import ModalProduct from '../../components/ModalProduct'
 
@@ -20,6 +20,7 @@ export default ({ data, getProdutos }) => {
                     <ProductCodigo>Codigo Barras: {data.codigo_barras}</ProductCodigo>
                     <ProductName>{data.nome}</ProductName>
                     <ProductPrice>Preço: R$ {data.preco}</ProductPrice>
+                    <ProductFabricante>Fabricante: {data.fabricante}</ProductFabricante>
                 </ProductInfoArea>
                 <ProductButtomArea>
                     <ProductButtom src="/assets/next.png" />

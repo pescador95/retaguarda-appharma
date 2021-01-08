@@ -28,17 +28,23 @@ export const ProductInfoArea = styled.div`
 export const ProductButtomArea = styled.div``
 
 export const ProductFoto = styled.img`
-    width:100%;
+    width:100px;
+    height:100px
 `
 export const ProductName = styled.div`
     font-size:16px;
     font-weight:bold;
 `
 export const ProductPrice = styled.div`
-    font-size:12px;
+    font-size:14px;
 `
 export const ProductCodigo = styled.div`
 font-size:12px;
+`
+
+export const ProductFabricante = styled.div`
+font-size:12px;
+margin-top:5px;
 `
 
 export const ProductButtom = styled.img`

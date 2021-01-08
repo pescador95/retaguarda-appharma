@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const ProductArea = styled.div`
     display:flex;
-    height: 300px;
+    height: 350px;
     
     `
 export const ProductButtons = styled.div`
@@ -56,6 +56,7 @@ export const ProductName = styled.div`
 `
 
 export const Buttom = styled.button`
+    width:100px;
       background-color: ${props => props.active ? '#0089ff' : '#999'};
       border:1;
       outline:0;

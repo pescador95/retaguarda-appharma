@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 import Modal from '../../components/Modal'
 import ModalOrdem from '../../components/ModalOrdem'
 import useApi from '../../Helpers/AppharmaApi'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import io from 'socket.io-client';
 const socket = io('wss://approachmobile.company');
 
@@ -15,14 +15,46 @@ let timeoutId;
 function OrderScreen() {
     const api = useApi()
     const [focus, setFocus] = useState(true) 
+    const [tipoEntrega, setTipoEntrega] = useState('')
     const [headerSearch, setHeaderSearch] = useState('');
     const [codCompra, setCodCompra] = useState('');
     const [modalActive, setModalActive] = useState(false);
     const [listaDePedidos, setListaDePedidos] = useState([])
     const token = useSelector(state => state.userReducer.token);
+    const dispatch = useDispatch()
     
     
-    
+    useEffect(() => {
+        const carregaParametros = async () => {
+            const resp = await api.getConfigs(token)
+            if(resp.error){
+                console.log("Não consegui carregar info: "+ resp.error.message)
+                return
+            }
+
+            dispatch({
+                type:'SET_TAXA',
+                payload: resp[0].taxa_entrega
+            })
+
+            dispatch({
+                type:'SET_WHATSAPP',
+                payload: resp[0].whatsapp
+            })
+
+            dispatch({
+                type:'SET_PREVISAO',
+                payload: resp[0].prazo_entrega
+            })
+
+            dispatch({
+                type:'SET_NOME',
+                payload: resp[0].descricao
+            })
+
+        }
+        carregaParametros()
+    }, [])
     
     useEffect(()=>{
 
@@ -98,13 +130,13 @@ function OrderScreen() {
             <OrderList>
                 {
                     listaDePedidos.map((i, k) => {
-                        return <OrderItem key={k} data={i} itemList={setModalActive} setCodCompra={setCodCompra} reloadList={reloadList} removeList={removeList}  />
+                        return <OrderItem key={k} data={i} itemList={setModalActive} setCodCompra={setCodCompra} reloadList={reloadList} removeList={removeList} tipoEntrega={setTipoEntrega}  />
                     })
                 }
             </OrderList>
 
             <Modal active={modalActive} setActive={setModalActive}  >
-                <ModalOrdem codOrdem={codCompra} />
+                <ModalOrdem codOrdem={codCompra} tipoEngrega={tipoEntrega} />
             </Modal>
 
         </Conteiner>
