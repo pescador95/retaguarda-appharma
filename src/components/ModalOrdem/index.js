@@ -56,7 +56,7 @@ function ModalOrdem({ codOrdem, tipoEngrega }) {
                 <Qtd>Quantidade</Qtd>
                 <Desconto>Desconto</Desconto>
                 <PrecoVigente>Preço</PrecoVigente>
-                <Total>Total Venda</Total>
+                <Total>Total Itens</Total>
             </ItemArea>
             { listaItems.map((i, k) => {
                 totalGeral += i.valor_liquido * i.qtditens;
