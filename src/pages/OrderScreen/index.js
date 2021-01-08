@@ -13,13 +13,14 @@ let timeoutId;
 
 function OrderScreen() {
     const api = useApi()
-    const [focus, setFocus] = useState(true)
+    const [focus, setFocus] = useState(true) 
     const [headerSearch, setHeaderSearch] = useState('');
     const [codCompra, setCodCompra] = useState('');
     const [modalActive, setModalActive] = useState(false);
     const [listaDePedidos, setListaDePedidos] = useState([])
     const token = useSelector(state => state.userReducer.token);
-    const socket = io('https://approachmobile.company');
+   const socket = io('wss://approachmobile.company');
+   
 
     socket.on('tem-venda', (codigoVenda) => {
         console.log("Recebi uma venda.. tenho que abrir alguma coisa para alertar o usuario... ")
@@ -46,6 +47,7 @@ function OrderScreen() {
         };
 
     })
+
 
 
 
@@ -84,7 +86,7 @@ function OrderScreen() {
             <OrderList>
                 {
                     listaDePedidos.map((i, k) => {
-                        return <OrderItem key={k} data={i} itemList={setModalActive} setCodCompra={setCodCompra} reloadList={reloadList} removeList={removeList} />
+                        return <OrderItem key={k} data={i} itemList={setModalActive} setCodCompra={setCodCompra} reloadList={reloadList} removeList={removeList}  />
                     })
                 }
             </OrderList>

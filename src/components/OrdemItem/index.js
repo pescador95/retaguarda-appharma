@@ -5,7 +5,7 @@ import FormataCpf from '../../Helpers/FormataCpf'
 import Titlelize from '../../Helpers/Titlelize'
 import {
     Container, BodyItem, InfoOrder, StatusArea, Buttom, PedidoInfo, ChavePedido, Text, HeaderStatus, WhatsArea,
-    ButtonsStatus, InfoOrderArea, EnderecoArea, Endereco, EnderecoHeader, CancelButtom, CancelArea, WhatsappButtom
+    ButtonsStatus, InfoOrderArea, EnderecoArea, Endereco, EnderecoHeader, CancelButtom, CancelArea, WhatsappButtom, OptionsArea, AreaBotoes
 } from './styled';
 import useApi from '../../Helpers/AppharmaApi'
 import { ErrorMessage, SuccessMessage } from '../../AppStyled'
@@ -20,7 +20,6 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
     const nomeUsuario = useSelector(state => state.userReducer.name)
     const dataVenda = new Date(data.data_venda).toLocaleDateString('pt-Br')
     const horaVenda = new Date(data.data_venda).toLocaleTimeString('pt-BR')
-
 
 
     useEffect(() => {
@@ -99,6 +98,13 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
 
     }
 
+    const handleAbreWhats = (uatis) => {
+        let whats = handleWhats(uatis)
+        let link = `https://api.whatsapp.com/send?phone=${whats}&text=Oi estou verificando seu pedido.`
+        window.open(link, "_blank");
+
+    }
+
     const handleWhats = (uatis) => {
         let v = uatis;
         var r = v.replace(/\D/g, "");
@@ -113,6 +119,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
             r = r.replace(/^(\d*)/, "($1");
         }
         return r
+
     }
 
     const handleEndereco = () => {
@@ -134,6 +141,8 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
         }
 
     }
+
+
 
     return (
         <Container onClick={handleItemClick}>
@@ -181,7 +190,9 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList }) {
                             handleCancelar(data.idcliente)
                         }}>Cancelar</CancelButtom>
                     </CancelArea>
-
+                    <WhatsArea>
+                        <WhatsappButtom active={true} className="buttom" onClick={() => handleAbreWhats(data.whatsapp)}>Whatsapp</WhatsappButtom>
+                    </WhatsArea>
                 </StatusArea>
             </BodyItem>
             <InfoOrder className="buttom" open={openEndereco}>

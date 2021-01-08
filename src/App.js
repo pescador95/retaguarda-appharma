@@ -1,4 +1,4 @@
-import React,  {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import ShopConfigScreen from './pages/ShopConfigScreen';
@@ -16,52 +16,54 @@ import Profile from './pages/Profile'
 
 import ReactTooltip from 'react-tooltip'
 
+
 export default () => {
-   document.title =  "R E T A G U A R D A  - [ Appharma ]";
-
-   return (
-      <BrowserRouter>
-         <Conteiner>
-            <Menu>
-               <MenuItem title="Pedidos" icon="/assets/order.png"  link="/"/>
-               <MenuItem title="Produtos" icon="/assets/store.png"  link="/loja"/>
-               <MenuItem title="Configurações" icon="/assets/engrenagem.png"  link="/configuracao"/>
-               <MenuItem title="Perfil" icon="/assets/profile.png"  link="/perfil"/>
-            </Menu>
-            <PageBody>
+    document.title = "R E T A G U A R D A  - [ Appharma ]";
 
 
-               <Switch>
-                  <PrivateRoute exact path="/">
-                     <OrderScreen />
-                  </PrivateRoute>
-                  <PrivateRoute exact path="/loja">
-                     <ShopConfigScreen />
-                  </PrivateRoute>
-                  <PrivateRoute exact path="/configuracao">
-                     <ConfigScreen />
-                  </PrivateRoute>
-                  <PrivateRoute exact path="/perfil">
-                     <Profile />
-                  </PrivateRoute>
-                  <Route exact path="/login">
-                     <Login />
-                  </Route>
-                  <Route>
-                     <NotFound />
-                  </Route>
-               </Switch>
+    return (
+        <BrowserRouter>
+            <Conteiner>
+                <Menu>
+                    <MenuItem title="Pedidos" icon="/assets/order.png" link="/" />
+                    <MenuItem title="Produtos" icon="/assets/store.png" link="/loja" />
+                    <MenuItem title="Configurações" icon="/assets/engrenagem.png" link="/configuracao" />
+                    <MenuItem title="Perfil" icon="/assets/profile.png" link="/perfil" />
+                </Menu>
+                <PageBody>
 
 
-            </PageBody>
-            {/* <Cart /> */}
-            <ReactTooltip id="tip-top" place="top" effect="solid" />
-            <ReactTooltip id="tip-right" place="right" effect="solid" />
+                    <Switch>
+                        <PrivateRoute exact path="/">
+                            <OrderScreen />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/loja">
+                            <ShopConfigScreen />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/configuracao">
+                            <ConfigScreen />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/perfil">
+                            <Profile />
+                        </PrivateRoute>
+                        <Route exact path="/login">
+                            <Login />
+                        </Route>
+                        <Route>
+                            <NotFound />
+                        </Route>
+                    </Switch>
 
 
-         </Conteiner>
+                </PageBody>
+                {/* <Cart /> */}
+                <ReactTooltip id="tip-top" place="top" effect="solid" />
+                <ReactTooltip id="tip-right" place="right" effect="solid" />
 
 
-      </BrowserRouter>
-   );
+            </Conteiner>
+
+
+        </BrowserRouter>
+    );
 }

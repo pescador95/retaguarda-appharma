@@ -7,7 +7,6 @@ export const Container = styled.div`
    border:1px solid #999;
    margin-bottom:10px;
    padding:10px;
-
    box-shadow:0px 0px 5px #999;
    border-radius:5px;
 `
@@ -34,6 +33,7 @@ export const StatusArea = styled.div`
   display:flex;
   flex-direction:column;
   margin-left:5px;
+  height:125px;
 
 `
 export const Buttom = styled.button`
@@ -61,24 +61,26 @@ export const CancelButtom = styled.button`
       padding:5px 10px;
       cursor:pointer;
       font-size:12px;
-      color:${props => props.active ? '#fff' : '#fff'};;
+      font-weight:bold;
+      color: #eee;
       border-radius:5px;
       &:hover {      
          background-color: ${props => props.active ? '#cf6b15' : '#999'};
       }
 `
 export const WhatsappButtom = styled.button`
-      background-color: ${props => props.active ? '#25d366' : '#999'};
+      background-color: ${props => props.active ? '#128c7e' : '#999'};
       flex:1;
       border:1;
       outline:0;
       padding:5px 10px;
       cursor:pointer;
       font-size:12px;
-      color:${props => props.active ? '#fff' : '#fff'};;
+      font-weight:bold;
+      color: #eee;
       border-radius:5px;
       &:hover {      
-         background-color: ${props => props.active ? '#128c7e' : '#999'};
+         background-color: ${props => props.active ? '#25d366' : '#999'};
       }
 `
 export const HeaderStatus = styled.div`
@@ -93,11 +95,21 @@ export const ButtonsStatus = styled.div`
    display:flex;
 `
 
+export const OptionsArea = styled.div`
+ 
+`
+export const AreaBotoes = styled.div`
+      background-color:#000;
+      height:150px
+`
+
 export const CancelArea = styled.div`
       display:flex;
+      margin-top:5px;
 `
 export const WhatsArea = styled.div`
       display:flex;
+      margin-top:5px;
 `
 export const PedidoInfo = styled.div`
    display:grid;
