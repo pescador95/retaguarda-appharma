@@ -7,7 +7,7 @@ import { SuccessMessage } from '../../AppStyled'
 export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
     const [image, setImage] = useState('');
-    const [desc, setDesc] = useState(data.descricao!=null?data.descricao:'');
+    const [desc, setDesc] = useState('');
     const fileField = useRef();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -16,9 +16,16 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
     useEffect(()=>{
         setImage(imgUrl)
-        console.log("Deveria atualizar a imagem")
 
-        return () =>  setImage("/assets/nopicture.png");
+        if (data.descricao){
+            setDesc(data.descricao)
+        } else {
+            setDesc('')
+        }
+
+        return () =>  {
+            setImage("/assets/nopicture.png");
+        }
 
     }, [imgUrl])
 

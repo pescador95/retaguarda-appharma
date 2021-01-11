@@ -6,13 +6,13 @@ import ModalProduct from '../../components/ModalProduct'
 export default ({ data, getProdutos }) => {
     const [productVisible, setProductVisible] = useState(false);
 
-    const clickHandle = () => {
+    const clickHandle = (obj) => {
         setProductVisible(true)
     }
 
     return (
         <Conteiner  >
-            <AreaAux onClick={() => clickHandle()}>
+            <AreaAux onClick={() => clickHandle(data)}>
                 <ProductFotoArea >
                     <ProductFoto src={data.path ? `https://approachmobile.company//files/${data.path}` : "/assets/nopicture.png"} />
                 </ProductFotoArea>
