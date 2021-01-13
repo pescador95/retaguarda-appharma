@@ -4,6 +4,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ShopConfigScreen from './pages/ShopConfigScreen';
 import ConfigScreen from './pages/ConfigScreen'
 
+import DashboardScreen from './pages/DashboardScreen'
+
 import OrderScreen from './pages/OrderScreen';
 
 import { Conteiner, Menu, PageBody } from './AppStyled';
@@ -25,10 +27,12 @@ export default () => {
         <BrowserRouter>
             <Conteiner>
                 <Menu>
+                    <MenuItem title="Dashboard" icon="/assets/dashboard.png" link="/dashboard" />
                     <MenuItem title="Pedidos" icon="/assets/order.png" link="/" />
                     <MenuItem title="Produtos" icon="/assets/store.png" link="/loja" />
                     <MenuItem title="Configurações" icon="/assets/engrenagem.png" link="/configuracao" />
                     <MenuItem title="Perfil" icon="/assets/profile.png" link="/perfil" />
+                    
                 </Menu>
                 <PageBody>
 
@@ -36,6 +40,9 @@ export default () => {
                     <Switch>
                         <PrivateRoute exact path="/">
                             <OrderScreen />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/dashboard">
+                            <DashboardScreen />
                         </PrivateRoute>
                         <PrivateRoute exact path="/loja">
                             <ShopConfigScreen />

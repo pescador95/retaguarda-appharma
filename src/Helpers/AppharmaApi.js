@@ -34,7 +34,7 @@ const AppApi = {
             })
             return resp.data
         } catch (e) {
-            return { error: e.response.data_error }
+            return { error: e }
         }
     },
     sendMessage: async (token, tipo, idUser) => {
@@ -152,6 +152,19 @@ const AppApi = {
             console.log(e)
             return {error:e}
         }
+    },
+
+    getGraficoVendas: async(token) =>{
+       try{
+        const resp = await api.get(`grafico/vendas`, {
+            headers:{auth:`${bearer} ${token}`}
+        })
+        return resp.data
+
+       } catch(e){
+           console.log(JSON.stringify(e))
+           return {error:e}
+       }
     }
 }
 
