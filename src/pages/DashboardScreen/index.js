@@ -75,14 +75,13 @@ function Dashboard() {
                 labels: labels.map(i => i.data_venda),
                 datasets: [
                     {
-                        label: 'Finalizado',
+                        label: 'Quantidade de Vendas',
                         fill: false,
                         lineTension: 0.1,
-                        backgroundColor: 'rgba(0, 155, 0, 0.2)',
-                        borderColor: 'rgba(0, 155, 0, 1)',
+                        backgroundColor: 'rgba(0, 0, 125, 0.2)',
+                        borderColor: 'rgba(0, 0, 125, 1)',
                         borderWidth: 2,
-
-                        data: labels.map(i => i.totalvenda)
+                        data: labels.map(i => i.qtdvendas)
                     },
                 ]
             }
@@ -117,7 +116,7 @@ function Dashboard() {
                         options={{
                             title: {
                                 display: true,
-                                text: 'Valor de vendas por status/dia',
+                                text: 'Valor total de vendas por dia',
                                 fontSize: 20,
 
                             },
@@ -137,7 +136,7 @@ function Dashboard() {
                         options={{
                             title: {
                                 display: true,
-                                text: 'Valor de vendas por dia',
+                                text: 'Quantidade de vendas por dia',
                                 fontSize: 20,
 
                             },
