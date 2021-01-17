@@ -1,8 +1,8 @@
 import axios from 'axios';
-import d from '../config/padroes'
+import env from "react-dotenv";
 
 const api = axios.create({
-    baseURL: d.API_URL,
+    baseURL: env.API_URL,
 })
 
 let bearer = 'Bearer';
@@ -11,10 +11,11 @@ let bearer = 'Bearer';
 const AppApi = {
     login: async (cpf, password) => {
         try {
+            console.log("Estou tentando logar com: "+env.API_URL)
             const resp = await api.post('sessions', { cpf, password }, { headers: {} })
             return resp.data
         } catch (e) {
-            return { error: e.response.data.error }
+            return { error: e }
         }
     },
     getVendas: async (token) => {

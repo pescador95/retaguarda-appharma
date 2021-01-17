@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom, AreaAux, ProductFabricante } from './styled'
 import Modal from '../../components/Modal'
 import ModalProduct from '../../components/ModalProduct'
+import env from 'react-dotenv'
 
 export default ({ data, getProdutos }) => {
     const [productVisible, setProductVisible] = useState(false);
@@ -14,7 +15,7 @@ export default ({ data, getProdutos }) => {
         <Conteiner  >
             <AreaAux onClick={() => clickHandle(data)}>
                 <ProductFotoArea >
-                    <ProductFoto src={data.path ? `https://approachmobile.company//files/${data.path}` : "/assets/nopicture.png"} />
+                    <ProductFoto src={data.path ? `${env.URL_FILES}${data.path}` : "/assets/nopicture.png"} />
                 </ProductFotoArea>
                 <ProductInfoArea>
                     <ProductCodigo>Codigo Barras: {data.codigo_barras}</ProductCodigo>
@@ -28,7 +29,7 @@ export default ({ data, getProdutos }) => {
             </AreaAux>
             <Modal active={productVisible} setActive={setProductVisible} >
                 <ModalProduct idProduto={data.id}
-                    imgUrl={data.path ? `https://approachmobile.company//files/${data.path}` : "/assets/nopicture.png"}
+                    imgUrl={data.path ? `${env.URL_FILES}${data.path}` : "/assets/nopicture.png"}
                     data={data}
                     attProdutos={getProdutos}
                     setActive={setProductVisible}
