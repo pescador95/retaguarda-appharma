@@ -7,14 +7,17 @@ import Modal from '../../components/Modal'
 import ModalOrdem from '../../components/ModalOrdem'
 import useApi from '../../Helpers/AppharmaApi'
 import { useSelector, useDispatch } from 'react-redux'
-import io from 'socket.io-client';
-// const socket = io('wss://approachmobile.company');
+import database from '../../Helpers/Firebase'
+// import io from 'socket.io-client';
+// const socket = io('https://astrofarma.approachmobile.company');
 
+let numeroVenda = 0;
 let timeoutId;
+
 
 function OrderScreen() {
     const api = useApi()
-    const [focus, setFocus] = useState(true) 
+    const [focus, setFocus] = useState(true)
     const [tipoEntrega, setTipoEntrega] = useState('')
     const [headerSearch, setHeaderSearch] = useState('');
     const [codCompra, setCodCompra] = useState('');
@@ -22,80 +25,75 @@ function OrderScreen() {
     const [listaDePedidos, setListaDePedidos] = useState([])
     const token = useSelector(state => state.userReducer.token);
     const dispatch = useDispatch()
-    
-    
+
+    const getDb = async () => {
+        await database.child('vendas').on('value', snap => {
+            var valor = snap.val().numero
+            console.log("Valor: " + valor)
+            if (valor > numeroVenda && numeroVenda > 0) {
+                const audio = new Audio('/assets/caixa_alerta.mp3')
+                let counter;
+                const blink = () => {
+                    counter++;
+                    audio.play()
+                    const msg = '!!! A T E N Ç Ã O !!!';
+                    const oldTitle = ' !! Você tem um novo pedido !!  ';
+                    document.title = document.title == msg ? oldTitle : msg;
+                    if (document.hasFocus() || counter == 10) {
+                        document.title = "R E T A G U A R D A  - [ Appharma ]";
+                        reloadList()
+                        clearInterval(timeoutId);
+                        timeoutId = ''
+
+                    }
+                }
+
+                if (!timeoutId && (!document.hasFocus())) {
+                    timeoutId = setInterval(blink, 250);
+
+                };
+
+            }
+            numeroVenda = valor;
+
+        })
+    }
+
+    useEffect(() => {
+        getDb();
+    }, [])
+
     useEffect(() => {
         const carregaParametros = async () => {
             const resp = await api.getConfigs(token)
-            if(resp.error){
-                console.log("Não consegui carregar info: "+ resp.error.message)
+            if (resp.error) {
+                console.log("Não consegui carregar info: " + resp.error.message)
                 return
             }
 
             dispatch({
-                type:'SET_TAXA',
+                type: 'SET_TAXA',
                 payload: resp[0].taxa_entrega
             })
 
             dispatch({
-                type:'SET_WHATSAPP',
+                type: 'SET_WHATSAPP',
                 payload: resp[0].whatsapp
             })
 
             dispatch({
-                type:'SET_PREVISAO',
+                type: 'SET_PREVISAO',
                 payload: resp[0].prazo_entrega
             })
 
             dispatch({
-                type:'SET_NOME',
+                type: 'SET_NOME',
                 payload: resp[0].descricao
             })
 
         }
         carregaParametros()
     }, [])
-    
-    // useEffect(()=>{
-
-    //     let unmontd = false;
-        
-    //     socket.on('tem-venda', (codigoVenda) => {
-    //         console.log("Recebi uma venda.. tenho que abrir alguma coisa para alertar o usuario... ")
-    //         const audio = new Audio('/assets/caixa_alerta.mp3')
-            
-    //         let counter;
-    //         const blink = () => {
-    //             counter++;
-    //             audio.play()
-    //             if(!unmontd){
-    //                 reloadList();
-    //             }
-    //             const msg = '!!! A T E N Ç Ã O !!!';
-    //             const oldTitle = ' !! Você tem um novo pedido !!  ';
-    //             document.title = document.title == msg ? oldTitle : msg;
-    //             if (document.hasFocus() || counter == 10) {
-    //                 document.title = "R E T A G U A R D A  - [ Appharma ]";
-    
-    //                 clearInterval(timeoutId);
-    //                 timeoutId = ''
-    //             }
-    //         }
-    
-    //         if (!timeoutId && (!document.hasFocus())) {
-    //             timeoutId = setInterval(blink, 250);
-    //         };
-    
-    //     })
-
-    //     return () =>{
-    //         unmontd = true;
-    //     }
-
-    // }, [])
-
-
-
 
     useEffect(() => {
 
@@ -111,14 +109,8 @@ function OrderScreen() {
 
     const reloadList = async () => {
 
-        let unmounted = false
-
-        if (!unmounted){
-            const r = await api.getVendas(token)
-            setListaDePedidos(r)
-        }
-
-        return () => unmounted = true;
+        const r = await api.getVendas(token)
+        setListaDePedidos(r)
         
     }
 
@@ -130,7 +122,7 @@ function OrderScreen() {
             <OrderList>
                 {
                     listaDePedidos.map((i, k) => {
-                        return <OrderItem key={k} data={i} itemList={setModalActive} setCodCompra={setCodCompra} reloadList={reloadList} removeList={removeList} tipoEntrega={setTipoEntrega}  />
+                        return <OrderItem key={k} data={i} itemList={setModalActive} setCodCompra={setCodCompra} reloadList={reloadList} removeList={removeList} tipoEntrega={setTipoEntrega} />
                     })
                 }
             </OrderList>
