@@ -8,8 +8,6 @@ import ModalOrdem from '../../components/ModalOrdem'
 import useApi from '../../Helpers/AppharmaApi'
 import { useSelector, useDispatch } from 'react-redux'
 import database from '../../Helpers/Firebase'
-// import io from 'socket.io-client';
-// const socket = io('https://astrofarma.approachmobile.company');
 
 let numeroVenda = 0;
 let timeoutId;
@@ -32,6 +30,7 @@ function OrderScreen() {
             console.log("Valor: " + valor)
             if (valor > numeroVenda && numeroVenda > 0) {
                 const audio = new Audio('/assets/caixa_alerta.mp3')
+                reloadList()
                 let counter;
                 const blink = () => {
                     counter++;
@@ -41,7 +40,6 @@ function OrderScreen() {
                     document.title = document.title == msg ? oldTitle : msg;
                     if (document.hasFocus() || counter == 10) {
                         document.title = "R E T A G U A R D A  - [ Appharma ]";
-                        reloadList()
                         clearInterval(timeoutId);
                         timeoutId = ''
 
@@ -110,6 +108,7 @@ function OrderScreen() {
     const reloadList = async () => {
 
         const r = await api.getVendas(token)
+        console.log("Eu carreguei de novo... "+JSON.stringify(r))
         setListaDePedidos(r)
         
     }
