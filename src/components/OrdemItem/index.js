@@ -101,7 +101,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList, tipoE
 
     const handleAbreWhats = (uatis) => {
         let whats = handleWhats(uatis)
-        let link = `https://api.whatsapp.com/send?phone=${whats}&text=Oi estou verificando seu pedido.`
+        let link = `https://api.whatsapp.com/send?phone=${whats.replace(/[^0-9]+/g, "")}&text=Oi estou verificando seu pedido.`
         window.open(link, "_blank");
 
     }
