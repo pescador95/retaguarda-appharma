@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -27,7 +28,7 @@ export default function Chips({nome, setAction}) {
   return (
     <div className={classes.root}>
       
-      <Chip label={nome} onClick={handleClick} onDelete={handleDelete} color="primary" />
+      <Chip  label={nome} onClick={handleClick} onDelete={handleDelete} color="primary" />
     
     </div>
   );

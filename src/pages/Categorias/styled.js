@@ -127,6 +127,6 @@ export const SubCategoriaListArea = styled.div`
     margin-top:20px;
     height:235px;
     border-radius:10px;
-   background-color:#106e36;
+   background-color:#999;
    overflow:auto;
 ` 
