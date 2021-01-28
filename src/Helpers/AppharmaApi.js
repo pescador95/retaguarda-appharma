@@ -166,6 +166,120 @@ const AppApi = {
            console.log(JSON.stringify(e))
            return {error:e}
        }
+    },
+
+    getCategorias: async() =>{
+        try{
+            const resp = await api.get(`categorias`)
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    getSubCategorias: async (id_categoria) =>{
+        try{
+            const resp = await api.get(`subcategorias/${id_categoria}`)
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    postCategorias: async(token, descricao, id_img) =>{
+        try{
+            const resp = await api.post(`categorias`, {descricao, id_img}, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    putCategorias: async(token, descricao, id_categoria, id_img) =>{
+        try{
+            let resp;
+            if (id_img != null){
+                resp = await api.put(`categorias?id=${id_categoria}`, {descricao, id_img}, {
+                    headers:{
+                        auth: `${bearer} ${token}`
+                    }
+                })
+            } else {
+                resp = await api.put(`categorias?id=${id_categoria}`, {descricao}, {
+                    headers:{
+                        auth: `${bearer} ${token}`
+                    }
+                })
+            }
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    postSubCategorias: async(token, descricao, id_categoria) =>{
+        try{
+            const resp = await api.post(`subcategorias`, {id_categoria, descricao}, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    putSubCategorias: async(token, descricao, id) =>{
+        try{
+            const resp = await api.put(`subcategorias/${id}`, {descricao}, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    deleteCategorias: async(token, id_categoria) => {
+        try{
+            const resp = await api.delete(`categorias/${id_categoria}`, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    deleteSubCategorias: async(token, id_categoria) => {
+        try{
+            const resp = await api.delete(`subcategorias/${id_categoria}`, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
     }
 }
 

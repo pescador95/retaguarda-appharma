@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import useApi from '../../Helpers/AppharmaApi'
 import ProductItem from '../../components/ProductItem'
 
+
 let searchTimer = null;
 
 export default () => {

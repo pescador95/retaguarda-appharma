@@ -31,16 +31,19 @@ function Login() {
 
          const validToken = await TokenHandler(token)
 
+
          if(!(validToken.admin)){
             setError("Acesso permitido apenas para administradores!");
             setDisable(false);
             return;
          }
 
+         let superadmin = validToken.superadmin;
 
          doLogin(token);
          dispatch({ type: "SET_TOKEN", payload: {token} });
-         dispatch({ type: "SET_NAME", payload: {name}})
+         dispatch({ type: "SET_NAME", payload: {name}});
+         dispatch({ type: "SET_SUPERADM", payload: {superadmin}});
          window.location.href = '/';
       }
 

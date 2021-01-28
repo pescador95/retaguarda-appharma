@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import ShopConfigScreen from './pages/ShopConfigScreen';
@@ -16,11 +16,17 @@ import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 
+import Categorias from './pages/Categorias'
+
 import ReactTooltip from 'react-tooltip'
 
+import {useSelector} from 'react-redux'
 
-export default () => {
+
+const Page = () => {
     document.title = "R E T A G U A R D A  - [ Appharma ]";
+
+    const superadm = useSelector(state => state.userReducer.superadmin);
 
 
     return (
@@ -31,6 +37,8 @@ export default () => {
                     <MenuItem title="Pedidos" icon="/assets/order.png" link="/" />
                     <MenuItem title="Produtos" icon="/assets/store.png" link="/loja" />
                     <MenuItem title="Configurações" icon="/assets/engrenagem.png" link="/configuracao" />
+                    { superadm &&
+                    <MenuItem title="Categorias" icon="/assets/categories.png" link="/categorias" />}
                     <MenuItem title="Perfil" icon="/assets/profile.png" link="/perfil" />
                     
                 </Menu>
@@ -56,6 +64,9 @@ export default () => {
                         <Route exact path="/login">
                             <Login />
                         </Route>
+                        <Route exact path="/categorias">
+                            <Categorias />
+                        </Route>
                         <Route>
                             <NotFound />
                         </Route>
@@ -74,3 +85,5 @@ export default () => {
         </BrowserRouter>
     );
 }
+
+export default Page;
