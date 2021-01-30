@@ -88,7 +88,7 @@ function Page() {
 
     const handleSave = async () => {
 
-        if (!fileField.current.files[0]) {
+        if (!fileField.current.files[0] && codigoCategoria === 0  ) {
             setError("Adicione uma imagem para a categoria!")
             return
         }
