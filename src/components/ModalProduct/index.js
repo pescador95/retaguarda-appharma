@@ -3,6 +3,7 @@ import { Container, ProductArea, ProductPhoto, ProductInfoArea, ProductDetails, 
 import useApi from '../../Helpers/AppharmaApi'
 import { useSelector } from 'react-redux'
 import { SuccessMessage } from '../../AppStyled'
+import env from "react-dotenv";
 
 export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
@@ -38,6 +39,7 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
             fData.append('file', fileField.current.files[0])
             let resposta = await api.sendPhoto(token, fData);
             let { url, id } = resposta.resp.data.imgId
+            url = env.APP_URL+url;
             id_img = id
             setImage(url)
         }
