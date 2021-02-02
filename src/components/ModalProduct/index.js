@@ -14,6 +14,7 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
     const [success, setSuccess] = useState('');
     const token = useSelector(state => state.userReducer.token)
     const api = useApi()
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=>{
         setImage(imgUrl)
@@ -32,17 +33,23 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
 
     const handleSubmit = async () => {
 
+        if (loading){return}
+
         const fData = new FormData();
         let id_img = null;
+
+        setLoading(true)
 
         if (fileField.current.files[0]) {
             fData.append('file', fileField.current.files[0])
             let resposta = await api.sendPhoto(token, fData);
-            let { url, id } = resposta.resp.data.imgId
+            let { url, id } = resposta.resp.data
+            console.log(JSON.stringify(resposta.resp))
             url = env.APP_URL+url;
             id_img = id
             setImage(url)
         }
+
 
         let obj;
         if(id_img!=null){
@@ -60,11 +67,11 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
             setSuccess('');
             setImage("/assets/nopicture.png");
             fileField.current.value = '';
+            setLoading(false);
             setActive(false);
 
+
         },2000);
-
-
 
     }
 
@@ -75,7 +82,7 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
                 <SuccessMessage>{success}</SuccessMessage>
             }
             <ProductArea>
-                <ProductPhoto src={image} />
+                <ProductPhoto src={typeof(image) === 'number' ? '/assets/nopicture.png' : image} />
                 <ProductInfoArea>
 
                     <ProductDetails>
@@ -91,7 +98,7 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
                 </ProductInfoArea>
             </ProductArea>
             <ProductButtons> 
-                <Buttom active={true} onClick={() => handleSubmit()}>Salvar</Buttom>
+                <Buttom active={!loading} onClick={() => handleSubmit()}>Salvar</Buttom>
             </ProductButtons>
         </Container>
     )
