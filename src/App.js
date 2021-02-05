@@ -8,6 +8,8 @@ import DashboardScreen from './pages/DashboardScreen'
 
 import OrderScreen from './pages/OrderScreen';
 
+import Push from './pages/PushNotification'
+
 import { Conteiner, Menu, PageBody } from './AppStyled';
 import MenuItem from './components/MenuItem';
 
@@ -15,6 +17,7 @@ import PrivateRoute from './components/PrivateRoute';
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
+
 
 import Categorias from './pages/Categorias'
 
@@ -36,10 +39,11 @@ const Page = () => {
                     <MenuItem title="Dashboard" icon="/assets/dashboard.png" link="/dashboard" />
                     <MenuItem title="Pedidos" icon="/assets/order.png" link="/" />
                     <MenuItem title="Produtos" icon="/assets/store.png" link="/loja" />
-                    <MenuItem title="Configurações" icon="/assets/engrenagem.png" link="/configuracao" />
                     { superadm &&
                     <MenuItem title="Categorias" icon="/assets/categories.png" link="/categorias" />}
+                    <MenuItem title="Enviar Notificação"  link="/pushnotification" />
                     <MenuItem title="Perfil" icon="/assets/profile.png" link="/perfil" />
+                    <MenuItem title="Configurações" icon="/assets/engrenagem.png" link="/configuracao" />
                     
                 </Menu>
                 <PageBody>
@@ -66,6 +70,9 @@ const Page = () => {
                         </Route>
                         <Route exact path="/categorias">
                             <Categorias />
+                        </Route>
+                        <Route exact path="/pushnotification">
+                            <Push />
                         </Route>
                         <Route>
                             <NotFound />

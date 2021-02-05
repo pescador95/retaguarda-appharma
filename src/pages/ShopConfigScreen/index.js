@@ -4,7 +4,17 @@ import { Container, ProductArea, ProductList, ProductPaginationArea, ProductPagi
 import Header from '../../components/Header'
 import { useSelector } from 'react-redux'
 import useApi from '../../Helpers/AppharmaApi'
+import Pagination from '@material-ui/lab/Pagination';
 import ProductItem from '../../components/ProductItem'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
+    },
+}));
 
 
 let searchTimer = null;
@@ -18,15 +28,18 @@ export default () => {
     const [headerSearch, setHeaderSearch] = useState('');
     const [totalPages, setTotalPages] = useState(0);
     const [activePage, setActivePage] = useState(0);
+    const [loading, setLoading] = useState(false)
 
 
     const getProdutos = async () => {
+        setLoading(true)
         const prods = await api.getProdutos(activePage, activeSearch)
         if (!prods.error) {
             setProdutos(prods.produtos)
             setTotalPages(prods.paginas)
             setActivePage(prods.pagina)
         }
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -46,15 +59,19 @@ export default () => {
     useEffect(() => {
         let unmonted = false
         if (!unmonted) {
+            console.log("Vou pegar produtos.. Active page:"+activePage)
             getProdutos();
         }
 
         return () => unmonted = true;
     }, [activePage, activeSearch])
 
-    const paginationHandler = (ind) => {
-        setActivePage(ind + 1)
-    }
+    const handleChange = (event, value) => {
+        if(!loading){
+            setActivePage(value);
+        }
+      };
+    const classes = useStyles();
 
     return (
         <Container>
@@ -71,15 +88,9 @@ export default () => {
                             />
                         ))}
                     </ProductList>
-                    {totalPages > 0 &&
-                        <ProductPaginationArea>
-                            {Array(totalPages).fill(0).map((item, index) => (
-                                <ProductPaginationItem key={index} active={activePage} current={index + 1} onClick={() => paginationHandler(index)}>
-                                    {index + 1}
-                                </ProductPaginationItem>
-                            ))}
-                        </ProductPaginationArea>
-                    }
+                    <div className={classes.root} style={{marginTop:20, marginBottom:20}}>
+                        <Pagination count={totalPages} page={parseFloat(activePage)} onChange={handleChange} />
+                    </div>
                 </ProductArea>
             }
         </Container>

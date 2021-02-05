@@ -52,6 +52,19 @@ const AppApi = {
         }
 
     },
+    sendBroadcast: async (token, title, mensagem) => {
+        try {
+            const resp = await api.post(`sendmessage/all`, {title, mensagem}, {
+                headers: { auth: `${bearer} ${token}` }
+            })
+
+            return {}
+
+        } catch (e) {
+            return { error: e.response.data_error }
+        }
+
+    },
     changeStatus: async (token, status, codigo_venda, usuario_alteracao) => {
         try {
             const resp = await api.put(`venda`, {
