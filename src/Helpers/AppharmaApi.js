@@ -201,6 +201,29 @@ const AppApi = {
             return {error:e}
         }
     },
+
+    getSubcategoriasProduto: async (token, id_produto, tipo) =>{
+        console.log("Vou pegar subcategoias do produto")
+        try{
+
+            const obj = {
+                id_produto,
+                tipo
+            }
+
+            const resp = await api.get(`/prod/sub`, obj, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log('DEU PAU: '+JSON.stringify(e))
+            return {error:e}
+        }
+    },
+
     postCategorias: async(token, descricao, id_img) =>{
         try{
             const resp = await api.post(`categorias`, {descricao, id_img}, {

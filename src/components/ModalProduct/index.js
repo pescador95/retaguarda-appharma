@@ -41,12 +41,13 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
         setLoading(true)
 
         if (fileField.current.files[0]) {
+            console.log("Entrei para pegar a imagem")
             fData.append('file', fileField.current.files[0])
             let resposta = await api.sendPhoto(token, fData);
-            let { url, id } = resposta.resp.data
-            console.log(JSON.stringify(resposta.resp))
+            console.log("Adicionei a imagme: "+ resposta.resp.data)
+            let { url, imgId } = resposta.resp.data
             url = env.APP_URL+url;
-            id_img = id
+            id_img = imgId
             setImage(url)
         }
 

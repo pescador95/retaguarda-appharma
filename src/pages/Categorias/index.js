@@ -105,8 +105,9 @@ function Page() {
         if (fileField.current.files[0]) {
             fData.append('file', fileField.current.files[0])
             let resposta = await api.sendPhoto(token, fData);
-            let { id } = resposta.resp.data.imgId
+            let id  = resposta.resp.data.imgId
             id_img = id
+            console.log("Esté o o id que vou salvear" + id_img)
         }
 
         if (codigoCategoria > 0) {

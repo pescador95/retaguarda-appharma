@@ -3,6 +3,7 @@ import React from 'react';
 import { Conteiner, ButtomArea, SingOut, BodyArea } from './styled';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import SelecionaSubcategoiras from '../../components/SelecionaSubcategorias'
 
 function Profile() {
    const dispatch = useDispatch();
@@ -16,11 +17,12 @@ function Profile() {
    }
    return (
       <Conteiner>
-         <BodyArea>
+          <SelecionaSubcategoiras id_produto="2" />
+         {/* <BodyArea>
             <ButtomArea onClick={handleClick}>
                <SingOut>Logout</SingOut>
             </ButtomArea>
-         </BodyArea>
+         </BodyArea> */}
       </Conteiner>
    )
 }
