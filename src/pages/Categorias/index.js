@@ -28,15 +28,27 @@ function Page() {
 
 
     useEffect(() => {
-        if (deleta === 0) { return }
-        let novaCategoria = listaDeCategorias.filter(i => i.id !== deleta)
-        setListaDeCategorias(novaCategoria)
+        let unmonted = false;
+
+        if (!unmonted) {
+            if (deleta === 0) { return }
+            let novaCategoria = listaDeCategorias.filter(i => i.id !== deleta)
+            setListaDeCategorias(novaCategoria)
+        }
+
+        return () => unmonted = true;
     }, [deleta])
 
     useEffect(() => {
-        if (deletaSubCategoria === 0) { return }
-        let novaCategoria = listaDeSubCategorias.filter(i => i.id !== deletaSubCategoria)
-        setListaDeSubCategorias(novaCategoria)
+        let unmonted = false;
+
+        if (!unmonted) {
+            if (deletaSubCategoria === 0) { return }
+            let novaCategoria = listaDeSubCategorias.filter(i => i.id !== deletaSubCategoria)
+            setListaDeSubCategorias(novaCategoria)
+        }
+
+        return () => unmonted = true;
     }, [deletaSubCategoria])
 
 

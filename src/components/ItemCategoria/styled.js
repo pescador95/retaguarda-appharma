@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const Conteiner = styled.div`
    display:flex;
-   flex:1;
    align-items:center;
    justify-content:center;
    background-color: ${props => props.ativo ? '#03fcf8' :  '#fff'};

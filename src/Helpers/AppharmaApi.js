@@ -203,15 +203,9 @@ const AppApi = {
     },
 
     getSubcategoriasProduto: async (token, id_produto, tipo) =>{
-        console.log("Vou pegar subcategoias do produto")
         try{
 
-            const obj = {
-                id_produto,
-                tipo
-            }
-
-            const resp = await api.get(`/prod/sub`, obj, {
+            const resp = await api.get(`prod/sub?id=${id_produto}&tipo=${tipo}`, {
                 headers:{
                     auth: `${bearer} ${token}`
                 }
@@ -316,7 +310,35 @@ const AppApi = {
             console.log(JSON.stringify(e))
             return {error:e}
         }
-    }
+    },
+    postProdutoSubcategoria: async(token, id_produto, id_subcategoria) =>{
+        try{
+            const resp = await api.post(`produtosubcategoria`, {id_produto, id_subcategoria}, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
+    deleteProdutoSubcategoria: async(token, id_produto, id_subcategoria) =>{
+        try{
+            const resp = await api.delete(`produtosubcategoria/${id_produto}/${id_subcategoria}`, {
+                headers:{
+                    auth: `${bearer} ${token}`
+                }
+            })
+            return resp.data
+
+        } catch(e){
+            console.log(JSON.stringify(e))
+            return {error:e}
+        }
+    },
 }
 
 export default () => AppApi;

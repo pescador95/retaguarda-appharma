@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 1000px;
+    width: 1050px;
+    height: 650px;
     padding:10px;
-    background-color:#eee
+    background-color:#ddd
 
 `
 
@@ -12,14 +13,22 @@ export const ProductArea = styled.div`
     height: 350px;
     
     `
+
+export const AreaFotoDesc = styled.div`
+    flex-direction: column;
+`
+
 export const ProductButtons = styled.div`
+        max-width: 450px;
         display:flex;
-        justify-content:center;
-        align-items:center;
-        height:50px;
+        justify-content: center;
+        align-items: center;
+        margin-top:20px;
     `
 export const ProductPhoto = styled.img`
-    width:310px;
+    width:200px;
+    height: 200px;
+    border:2px dashed #999
 `
 
 export const ProductInfoArea = styled.div`
@@ -32,7 +41,7 @@ export const ProductDetails = styled.form`
     height:100%;
 `
 export const ProductImportaFoto = styled.input`
-width:100%;
+width:50%;
 font-size:14px;
 padding:5px;
 border:1px solid #eee
@@ -52,7 +61,15 @@ export const ProductDescription = styled.textarea`
 `
 
 export const ProductName = styled.div`
+    font-family:Roboto Normal;
     font-size:16px;
+    max-width: 450px;
+`
+
+export const Texto = styled.div`
+    font-family:Roboto Normal;
+    font-size:${props => props.size || '12px'};
+    max-width: 450px;
 `
 
 export const Buttom = styled.button`

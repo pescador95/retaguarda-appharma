@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Conteiner, ProductFotoArea, ProductInfoArea, ProductButtomArea, ProductFoto, ProductName, ProductPrice, ProductCodigo, ProductButtom, AreaAux, ProductFabricante } from './styled'
 import Modal from '../../components/Modal'
 import ModalProduct from '../../components/ModalProduct'
 import env from 'react-dotenv'
 
+
 export default ({ data, getProdutos }) => {
     const [productVisible, setProductVisible] = useState(false);
-
     const clickHandle = (obj) => {
         setProductVisible(true)
     }
+
 
     return (
         <Conteiner  >
