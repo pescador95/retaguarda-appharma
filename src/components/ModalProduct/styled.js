@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 1050px;
-    height: 650px;
+    width: 1100px;
+    height: 700px;
     padding:10px;
     background-color:#ddd
 
@@ -26,8 +26,8 @@ export const ProductButtons = styled.div`
         margin-top:20px;
     `
 export const ProductPhoto = styled.img`
-    width:200px;
-    height: 200px;
+    width:280px;
+    height: 280px;
     border:2px dashed #999
 `
 

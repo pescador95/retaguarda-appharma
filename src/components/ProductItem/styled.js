@@ -22,14 +22,15 @@ export const ProductFotoArea = styled.div`
 `
 export const ProductInfoArea = styled.div`
     flex:1;
-    margin-left:10px;
-    margin-right:10px;
+    margin-left:50px;
+    margin-right:0px;
 `
 export const ProductButtomArea = styled.div``
 
 export const ProductFoto = styled.img`
-    width:100px;
-    height:100px
+    width:150px;
+    height:100px;
+    margin-left:-10px;
 `
 export const ProductName = styled.div`
     font-size:16px;
