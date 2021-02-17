@@ -53,7 +53,7 @@ function Page() {
         }
 
         setLoading(true)
-        await api.sendBroadcast(token, mensagem, titulo)
+        await api.sendBroadcast(token, titulo, mensagem) 
         setLoading(false)
     }
 
