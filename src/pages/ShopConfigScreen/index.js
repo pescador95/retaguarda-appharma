@@ -48,7 +48,7 @@ export default () => {
         if (!unmonted) {
             searchTimer = setTimeout(() => {
                 setActiveSearch(headerSearch)
-            }, 2000);
+            }, 5000);
             setActivePage(0)
         }
 
@@ -59,7 +59,7 @@ export default () => {
     useEffect(() => {
         let unmonted = false
         if (!unmonted) {
-            console.log("Vou pegar produtos.. Active page:"+activePage)
+            console.log("Vou dar um getProdutos... ")
             getProdutos();
         }
 

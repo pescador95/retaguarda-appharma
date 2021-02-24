@@ -4,7 +4,7 @@ import useApi from '../../Helpers/AppharmaApi'
 import Button from '@material-ui/core/Button';
 import SelecionaSubcategoiras from '../../components/SelecionaSubcategorias'
 import { useSelector } from 'react-redux'
-import { SuccessMessage } from '../../AppStyled'
+import { SuccessMessage, ErrorMessage } from '../../AppStyled'
 import env from "react-dotenv";
 
 
@@ -19,6 +19,17 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
     const token = useSelector(state => state.userReducer.token)
     const api = useApi()
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+
+        if (error != ''){
+            setTimeout(()=>{
+                setError('');
+                setLoading(false)
+            }, 2000)
+        }
+
+    }, [error])
 
     useEffect(() => {
         setImage(imgUrl)
@@ -49,6 +60,12 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
         setLoading(true)
 
         if (fileField.current.files[0]) {
+
+            if( parseInt(data.classe_terapeutica) > 0){
+                setError('Não é possivel alterar foto de produtos com classe terapeutica!');
+                return
+            }
+
             console.log("Entrei para pegar a imagem")
             fData.append('file', fileField.current.files[0])
             let resposta = await api.sendPhoto(token, fData);
@@ -74,7 +91,7 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
         attProdutos();
         setTimeout(() => {
             setSuccess('');
-            setImage("/assets/nopicture.png");
+           // setImage("/assets/nopicture.png");
             fileField.current.value = '';
             setLoading(false);
             setActive(false);
@@ -89,6 +106,10 @@ export default ({ idProduto, imgUrl, data, attProdutos, setActive }) => {
         <Container>
             {success &&
                 <SuccessMessage>{success}</SuccessMessage>
+
+            }
+            {error &&
+                <ErrorMessage>{error}</ErrorMessage>
 
             }
             <ProductArea style={{ zIndex: -10 }}>
