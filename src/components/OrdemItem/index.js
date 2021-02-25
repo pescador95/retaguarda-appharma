@@ -50,7 +50,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList, tipoE
 
         try {
             await api.changeStatus(token, 'Confirmado', data.codigo_venda, nomeUsuario)
-            await api.sendMessage(token, 1, idCliente)
+            await api.sendMessage(token, 1, idCliente, data.codigo_venda)
             setSuccessMsg('Venda autorizada com sucesso!')
             reloadList()
             await api.baixarReservas(token, data.codigo_venda)
@@ -71,7 +71,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList, tipoE
 
         try {
             await api.changeStatus(token, 'Enviado', data.codigo_venda, nomeUsuario)
-            await api.sendMessage(token, 2, idCliente)
+            await api.sendMessage(token, 2, idCliente, data.codigo_venda)
             setSuccessMsg('Venda enviada ao cliente com sucesso!')
             reloadList()
         } catch (e) {
@@ -88,7 +88,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList, tipoE
 
         try {
             await api.changeStatus(token, 'Finalizado', data.codigo_venda, nomeUsuario)
-            await api.sendMessage(token, 3, idCliente)
+            await api.sendMessage(token, 3, idCliente, data.codigo_venda)
             setSuccessMsg('Venda finalizada com sucesso!')
             removeList(data.codigo_venda)
 
@@ -131,7 +131,7 @@ function OrdemItem({ data, itemList, setCodCompra, reloadList, removeList, tipoE
 
         try {
             await api.changeStatus(token, 'Cancelado', data.codigo_venda, nomeUsuario)
-            await api.sendMessage(token, 4, idCliente)
+            await api.sendMessage(token, 4, idCliente, data.codigo_venda)
             await api.cancelarResarvas(token, data.codigo_venda)
             setSuccessMsg('Venda cancelada com sucesso!')
             removeList(data.codigo_venda)

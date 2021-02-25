@@ -38,10 +38,10 @@ const AppApi = {
             return { error: e }
         }
     },
-    sendMessage: async (token, tipo, idUser) => {
+    sendMessage: async (token, tipo, idUser, idVenda) => {
         try {
             console.log("Vou mandar mensagem, recebi esse token: " + token + " e esse user " + idUser)
-            const resp = await api.post(`sendmessage/${idUser}/${tipo}`, {}, {
+            const resp = await api.post(`sendmessage/${idUser}/${tipo}/${idVenda}`, {}, {
                 headers: { auth: `${bearer} ${token}` }
             })
 
